@@ -1,6 +1,13 @@
+terraform {
+  required_providers {
+    nomad = {
+      source = "hashicorp/nomad"
+      version = "1.4.13"
+    }
+  }
+}
 provider "nomad" {
-    address = var.nomad_address
-    region = "DC1"
+    address = "http://node.local:4646"
 }
 #Backend Nomad Configuration
 resource "nomad_scheduler_config" "config" {
@@ -16,34 +23,23 @@ resource "nomad_scheduler_config" "config" {
 //   jobspec = file("${path.module}/jobs/redist.nomad")
 // }
 
-resource "nomad_namespace" "dev" {
-  name        = "dev"
-  description = "Shared development environment."
-  quota       = "dev"
-}
 
-resource "nomad_namespace" "production" {
-  name        = "production"
-  description = "Shared development environment."
-  quota       = "production"
-}
-
-resource "nomad_namespace" "playground" {
-  name        = "playground"
-  description = "Shared development environment."
-  quota       = "playground"
-}
-
-resource "nomad_quota_specification" "prod_api" {
-  name        = "prod-api"
-  description = "Production instances of backend API servers"
+resource "nomad_quota_specification" "web_team" {
+  name        = "web-team"
+  description = "web team quota"
 
   limits {
-    region = "DC1"
+    region = "global"
 
     region_limit {
-      cpu       = 2400
-      memory_mb = 1200
+      cpu       = 1000
+      memory_mb = 256
     }
   }
+}
+
+resource "nomad_namespace" "web" {
+  name        = "web"
+  description = "Web team production environment."
+  quota       = nomad_quota_specification.web_team.name
 }
