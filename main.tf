@@ -33,6 +33,20 @@ resource "nomad_quota_specification" "web_team" {
 
     region_limit {
       cpu       = 1000
+      memory_mb = 2048
+    }
+  }
+}
+
+resource "nomad_quota_specification" "snapshot" {
+  name        = "snapshot"
+  description = "snapshot"
+
+  limits {
+    region = "global"
+
+    region_limit {
+      cpu       = 1000
       memory_mb = 256
     }
   }
@@ -40,11 +54,12 @@ resource "nomad_quota_specification" "web_team" {
 
 resource "nomad_namespace" "web" {
   name        = "web"
-  description = "Web team production environment."
+  description = "Web team production environment"
   quota       = nomad_quota_specification.web_team.name
 }
 
 resource "nomad_namespace" "snapshot" {
   name        = "snapshot"
-  description = "custom namespace for snapshot demo"
+  description = "custom namespace for snapshot"
+  quota       = nomad_quota_specification.snapshot.name
 }
