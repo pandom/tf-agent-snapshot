@@ -43,3 +43,8 @@ resource "nomad_namespace" "web" {
   description = "Web team production environment."
   quota       = nomad_quota_specification.web_team.name
 }
+
+resource "nomad_namespace" "snapshot" {
+  name        = "snapshot"
+  description = "custom namespace for snapshot demo"
+}
