@@ -1,5 +1,6 @@
 provider "nomad" {
     address = var.nomad_address
+    region = "DC1"
 }
 #Backend Nomad Configuration
 resource "nomad_scheduler_config" "config" {
