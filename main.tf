@@ -7,7 +7,7 @@ terraform {
   }
 }
 provider "nomad" {
-    address = "http://node.local:4646"
+    address = "http://10.0.0.25:4646"
 }
 #Backend Nomad Configuration
 resource "nomad_scheduler_config" "config" {
