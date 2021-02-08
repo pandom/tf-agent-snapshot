@@ -29,7 +29,7 @@ resource "nomad_quota_specification" "web_team" {
   description = "web team quota"
 
   limits {
-    region = "global"
+    region = "prod"
 
     region_limit {
       cpu       = 1000
@@ -43,7 +43,7 @@ resource "nomad_quota_specification" "snapshot" {
   description = "snapshot"
 
   limits {
-    region = "global"
+    region = "prod"
 
     region_limit {
       cpu       = 1000
