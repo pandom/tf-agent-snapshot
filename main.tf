@@ -47,7 +47,7 @@ resource "nomad_quota_specification" "snapshot" {
 
     region_limit {
       cpu       = 1000
-      memory_mb = 256
+      memory_mb = 512s
     }
   }
 }
